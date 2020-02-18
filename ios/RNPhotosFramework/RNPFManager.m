@@ -745,6 +745,18 @@ RCT_EXPORT_METHOD(getAlbumsByTitles:(NSDictionary *)params
     resolve([PHCollectionService generateCollectionResponseWithCollections:(PHFetchResult<PHCollection *> *)collections andParams:params]);
 }
 
+RCT_EXPORT_METHOD(getAlbumsByLocalIdentifiers:(NSDictionary *)params
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+{
+    NSArray * albumsIdentifiers = [RCTConvert NSArray:params[@"albumsIdentifiers"]];
+    if(albumsIdentifiers == nil) {
+        return reject(@"albumIdentifiers cannot be null", nil, nil);
+    }
+    PHFetchResult<PHAssetCollection *> * collections = [PHCollectionService getAlbumsWithLocalIdentifiers:albumsIdentifiers andParams:params];
+    resolve([PHCollectionService generateCollectionResponseWithCollections:(PHFetchResult<PHCollection *> *)collections andParams:params]);
+}
+
 /*
  CreateAlbums
  */

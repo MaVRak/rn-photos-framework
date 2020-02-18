@@ -178,6 +178,12 @@ class RNPhotosFramework {
     });
   }
 
+  getAlbumsByLocalIdentifiers(params) {
+    return RNPFManager.getAlbumsByLocalIdentifiers(params).then(albumQueryResult => {
+      return new AlbumQueryResult(albumQueryResult, params, eventEmitter);
+    });
+  }
+
   // param should include property called albumTitles : array<string> But can also
   // include things like fetchOptions and type/subtype.
   getAlbumsWithParams(params) {
